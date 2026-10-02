@@ -35,6 +35,10 @@ app.register_blueprint(admin_bp)
 # Initialize database tables + default admin on startup
 # ---------------------------------------------------------
 
+import os
+instance_dir = os.path.join(app.root_path, "instance")
+os.makedirs(instance_dir, exist_ok=True)
+
 with app.app_context():
     db.create_all()
     try:
