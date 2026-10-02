@@ -1,0 +1,62 @@
+{% extends "admin/layouts/base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<div class="admin-content">
+    <div class="mb-4">
+        <h2 class="fw-bold">Reports</h2>
+        <p class="text-muted mb-0">Store performance overview.</p>
+    </div>
+    <div class="row g-4 mb-4">
+        <div class="col-md-3"><div class="card admin-card text-center p-3"><h3 class="fw-bold">{{ total_orders }}</h3><small class="text-muted">Total Orders</small></div></div>
+        <div class="col-md-3"><div class="card admin-card text-center p-3"><h3 class="fw-bold text-success">₹{{ total_revenue }}</h3><small class="text-muted">Total Revenue</small></div></div>
+        <div class="col-md-3"><div class="card admin-card text-center p-3"><h3 class="fw-bold text-warning">{{ pending_orders }}</h3><small class="text-muted">Pending</small></div></div>
+        <div class="col-md-3"><div class="card admin-card text-center p-3"><h3 class="fw-bold text-danger">{{ cancelled_orders }}</h3><small class="text-muted">Cancelled</small></div></div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card admin-card"><div class="card-body">
+                <h5>Top Selling Products</h5>
+                <table class="table table-sm">
+                    <thead><tr><th>Product</th><th>Sold</th><th>Revenue</th></tr></thead>
+                    <tbody>
+                        {% for name, sold, revenue in top_products %}<tr><td>{{ name }}</td><td>{{ sold }}</td><td>₹{{ revenue }}</td></tr>
+                        {% else %}<tr><td colspan="3" class="text-muted">No data</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card admin-card"><div class="card-body">
+                <h5>Category Sales</h5>
+                <table class="table table-sm">
+                    <thead><tr><th>Category</th><th>Sold</th><th>Revenue</th></tr></thead>
+                    <tbody>
+                        {% for name, sold, revenue in category_sales %}<tr><td>{{ name }}</td><td>{{ sold }}</td><td>₹{{ revenue }}</td></tr>
+                        {% else %}<tr><td colspan="3" class="text-muted">No data</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card admin-card"><div class="card-body">
+                <h5>Brand Sales</h5>
+                <table class="table table-sm">
+                    <thead><tr><th>Brand</th><th>Sold</th><th>Revenue</th></tr></thead>
+                    <tbody>
+                        {% for name, sold, revenue in brand_sales %}<tr><td>{{ name }}</td><td>{{ sold }}</td><td>₹{{ revenue }}</td></tr>
+                        {% else %}<tr><td colspan="3" class="text-muted">No data</td></tr>{% endfor %}
+                    </tbody>
+                </table>
+            </div></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card admin-card"><div class="card-body">
+                <h5>Inventory Status</h5>
+                <p class="mb-1">Total Products: {{ total_products }}</p>
+                <p class="mb-1 text-warning">Low Stock: {{ low_stock }}</p>
+                <p class="mb-0 text-danger">Out of Stock: {{ out_of_stock }}</p>
+            </div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

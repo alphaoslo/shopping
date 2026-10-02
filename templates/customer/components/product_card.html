@@ -1,0 +1,156 @@
+<div class="col-lg-3 col-md-6">
+
+    <div class="card product-card h-100 border-0 shadow-sm">
+
+        <!-- Discount Badge -->
+        {% set discount = (((product.original_price - product.price) /
+        product.original_price) * 100) | round | int %}
+
+        <span class="badge bg-danger discount-badge">
+            {{ discount }}% OFF
+        </span>
+
+        {% if card_type == "best_seller" %}
+        <span class="badge bg-warning text-dark best-seller-badge">
+            ⭐ Best Seller
+        </span>
+        {% endif %}
+
+        <!-- Wishlist -->
+        <button class="wishlist-btn">
+            <i class="bi bi-heart"></i>
+        </button>
+
+        <!-- Product Image -->
+        <a href="{{ url_for('customer.product_details', product_id=product.id) }}">
+            <img
+                src="{{ url_for('static', filename='uploads/products/' ~ product.image) }}"
+                class="product-image"
+                alt="{{ product.name }}"
+            >
+        </a>
+
+        <div class="card-body product-card-body d-flex flex-column">
+
+            <!-- Product Name -->
+            <h5 class="fw-bold mb-2">
+                <a
+                    href="{{ url_for('customer.product_details', product_id=product.id) }}"
+                    class="text-decoration-none text-dark"
+                >
+                    {{ product.name }}
+                </a>
+            </h5>
+
+            <!-- Description -->
+            <p class="text-muted small">
+                {{ product.description }}
+            </p>
+
+            <!-- Rating -->
+            <div class="mb-2">
+
+                {% for i in range(5) %}
+
+                    {% if i < product.rating|int %}
+                        <i class="bi bi-star-fill text-warning"></i>
+                    {% else %}
+                        <i class="bi bi-star text-warning"></i>
+                    {% endif %}
+
+                {% endfor %}
+
+                <small class="text-muted">
+                    ({{ product.review_count }} Reviews)
+                </small>
+
+            </div>
+
+            <!-- Product Meta -->
+            <div class="product-meta">
+                <small class="text-muted d-block">
+                    Brand:
+                    <strong>{{ product.brand.name }}</strong>
+                </small>
+
+                <small class="text-muted d-block">
+                    Category:
+                    <strong>{{ product.category.name }}</strong>
+                </small>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-2">
+
+                <span class="fs-5 fw-bold text-primary">
+                    ₹{{ product.price }}
+                </span>
+
+                <span class="text-muted text-decoration-line-through ms-2">
+                    ₹{{ product.original_price }}
+                </span>
+
+            </div>
+
+            <!-- Stock Status -->
+            {% if product.stock > 0 %}
+
+            <p class="text-success fw-semibold small mb-2">
+                <i class="bi bi-check-circle-fill"></i>
+                {{ product.stock }} in stock
+            </p>
+            {% else %}
+
+            <p class="text-danger small fw-semibold mb-3">
+                <i class="bi bi-x-circle-fill"></i>
+                Out of Stock
+            </p>
+
+            {% endif %}
+
+            <!-- Buttons -->
+            <div class="mt-auto d-grid gap-2">
+
+                <form
+                    action="{{ url_for('customer.add_to_cart', product_id=product.id) }}"
+                    method="POST"
+                    class="d-grid"
+                >
+
+                    <input
+                        type="hidden"
+                        name="quantity"
+                        value="1"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        {% if product.stock == 0 %}disabled{% endif %}
+                    >
+                        <i class="bi bi-cart-plus"></i>
+
+                        {% if product.stock > 0 %}
+                            Add to Cart
+                        {% else %}
+                            Out of Stock
+                        {% endif %}
+
+                    </button>
+
+                </form>
+
+                <a
+                    href="{{ url_for('customer.product_details', product_id=product.id) }}"
+                    class="btn btn-outline-primary"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

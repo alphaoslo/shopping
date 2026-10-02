@@ -1,0 +1,1118 @@
+/* ==========================================================
+   COLOR JOYS PAINT CO.
+   MAIN STYLESHEET
+========================================================== */
+
+
+/* ==========================================================
+   GLOBAL STYLES
+========================================================== */
+
+body{
+    font-family: "Segoe UI", sans-serif;
+    background: #f8f9fa;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.navbar{
+    padding: 18px 0;
+    transition: all .35s ease;
+}
+
+.navbar-brand{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.nav-link{
+    font-weight: 600;
+    margin-left: 14px;
+    transition: .3s;
+}
+
+.nav-link:hover{
+    color: #ffc107 !important;
+}
+
+
+/* ==========================================================
+   
+ CAROUSEL
+========================================================== */
+
+.carousel-item{
+    position: relative;
+}
+
+.carousel-item img{
+
+    width:100%;
+    height:650px;
+
+    object-fit:cover;
+    object-position:center;
+
+}
+
+.carousel-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:1;
+
+}
+
+.carousel-caption{
+
+    z-index:2;
+
+    left:8%;
+
+    right:auto;
+
+    bottom:20%;
+
+    max-width:560px;
+
+    text-align:left;
+
+}
+
+.carousel-caption .badge{
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:.9rem;
+
+}
+
+.carousel-caption h1{
+
+    font-size:4rem;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+    text-shadow:3px 3px 15px rgba(0,0,0,.8);
+
+}
+
+.carousel-caption p{
+
+    font-size:1.25rem;
+
+    margin-top:15px;
+
+    text-shadow:2px 2px 10px rgba(0,0,0,.8);
+
+}
+
+.carousel-caption .btn{
+
+    margin-top:20px;
+
+    padding:13px 34px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+
+    width:3rem;
+
+    height:3rem;
+
+}
+
+
+/* ==========================================================
+   SECTION
+========================================================== */
+
+section{
+
+    padding:70px 0;
+
+}
+
+section h2{
+
+    font-size:2.2rem;
+
+    font-weight:700;
+
+}
+
+.welcome-text{
+
+    max-width:850px;
+
+    margin:auto;
+
+    font-size:1.15rem;
+
+    line-height:1.8;
+
+}
+
+
+/* ==========================================================
+   SHOP BY CATEGORY
+========================================================== */
+
+.category-card{
+
+    border:none;
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    transition:all .4s ease;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 22px 45px rgba(0,0,0,.18);
+
+}
+.category-img{
+
+    width:100%;
+
+    height:240px;
+
+    object-fit:cover;
+
+    transition:transform .5s ease;
+
+}
+.category-card:hover .category-img{
+
+    transform:scale(1.08);
+
+}
+
+.category-card .card-body{
+
+    padding:25px;
+
+}
+
+.category-card h5{
+
+    font-size:1.25rem;
+
+    font-weight:700;
+
+}
+
+.category-card p{
+
+    color:#6c757d;
+
+    min-height:60px;
+
+    line-height:1.6;
+
+}
+
+.category-card .btn{
+
+    border-radius:30px;
+
+    padding:10px 30px;
+
+    font-weight:600;
+
+    letter-spacing:.4px;
+
+    transition:all .3s ease;
+
+}
+
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.btn{
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+footer{
+
+    background:#212529;
+
+    color:white;
+
+    padding:40px 0;
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:992px){
+
+    .carousel-item img{
+
+    height:520px;
+
+}
+
+    .carousel-caption{
+
+        left:7%;
+
+        bottom:18%;
+
+        max-width:85%;
+
+    }
+
+    .carousel-caption h1{
+
+        font-size:3rem;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .carousel-item img{
+
+    height:430px;
+
+}
+    .carousel-caption{
+
+        left:5%;
+
+        bottom:14%;
+
+        max-width:90%;
+
+    }
+
+    .carousel-caption h1{
+
+        font-size:2.2rem;
+
+    }
+
+    .carousel-caption p{
+
+        font-size:1rem;
+
+    }
+
+    .carousel-caption .btn{
+
+        padding:10px 24px;
+
+        font-size:.95rem;
+
+    }
+
+    .category-img{
+
+        height:220px;
+
+    }
+
+}
+
+/* ==========================================================
+   FEATURED PRODUCTS
+========================================================== */
+
+.product-card{
+
+    position: relative;
+
+    border-radius: 18px;
+
+    overflow: visible;
+
+    background: #fff;
+
+    transition: all .35s ease;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+}
+
+.product-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 22px 48px rgba(0,0,0,.16);
+
+    z-index:10;
+
+}
+
+
+/* ==========================================================
+   PRODUCT CARD BODY
+========================================================== */
+
+.product-card-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+    padding:1.25rem;
+
+}
+.product-card h5{
+
+    min-height:56px;
+
+    line-height:1.4;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    margin-bottom:.75rem;
+
+}
+
+.product-card p{
+
+    min-height:72px;
+
+    line-height:1.6;
+
+    color:#6c757d;
+
+    margin-bottom:1rem;
+
+}
+
+.product-meta{
+
+    min-height:52px;
+
+    margin-bottom:1rem;
+
+}
+
+.product-meta small{
+
+    display:block;
+
+    line-height:1.5;
+
+}
+
+.product-card .mb-3{
+
+    min-height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.product-card .mt-auto{
+
+    margin-top:auto;
+
+    padding-top:.5rem;
+
+}
+
+/* ==========================================================
+   PRODUCT IMAGE
+========================================================== */
+
+.product-image{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:contain;
+
+    padding:15px;
+
+    transition:transform .35s ease;
+
+}
+/* Image Hover Effect */
+.product-card:hover .product-image{
+
+    transform:scale(1.06);
+
+}
+
+/* Wishlist Button */
+
+.wishlist-btn{
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #6c757d;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+
+    z-index: 30;
+
+    transition: all .3s ease;
+
+}
+
+.wishlist-btn:hover{
+
+    color:#dc3545;
+
+    background:#fff5f5;
+
+    transform:scale(1.08);
+
+}
+
+/* Product Title */
+
+
+
+.product-card small{
+
+    display: block;
+
+    min-height: 24px;
+
+}
+
+
+/* Rating */
+
+.product-card .text-warning i{
+
+    font-size: .95rem;
+
+}
+
+/* Price */
+
+.product-card .text-success{
+
+    font-size: 1.4rem;
+
+}
+
+/* Discount Badge */
+/* Discount Badge */
+
+.discount-badge{
+
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    z-index: 30;
+
+    border-radius: 30px;
+
+    padding: 6px 12px;
+
+    font-size: .75rem;
+
+    font-weight: 600;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+
+}
+
+/* Best Seller Badge */
+
+.best-seller-badge{
+
+    position:absolute;
+
+    top:12px;
+
+    left:95px;
+
+    z-index:30;
+
+    border-radius:30px;
+
+    padding:6px 12px;
+
+    font-size:.75rem;
+
+    font-weight:600;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+
+}
+
+.product-card .badge{
+
+    border-radius: 30px;
+
+}
+
+.product-card img{
+
+    display:block;
+
+}
+
+/* Buttons */
+
+/* ==========================================================
+   PRODUCT BUTTONS
+========================================================== */
+
+.product-card .btn{
+
+    width:100%;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    padding:10px;
+
+    transition:all .25s ease;
+
+}
+
+.product-card .btn-primary{
+
+    margin-bottom:10px;
+
+}
+
+.product-card .btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+}
+
+
+/* ==========================================================
+   BEST SELLERS HEADING
+========================================================== */
+
+#best-sellers{
+
+    padding-top:80px;
+
+}
+
+#best-sellers h2{
+
+    font-size:2.3rem;
+
+    font-weight:700;
+
+}
+
+.view-all-link{
+
+    color:#0d6efd;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    transition:all .3s ease;
+
+}
+
+.view-all-link:hover{
+
+    color:#084298;
+
+    transform:translateX(4px);
+
+}
+
+@media (max-width:768px){
+
+    #best-sellers .d-flex{
+
+        flex-direction:column;
+
+        align-items:flex-start !important;
+
+        gap:12px;
+
+    }
+
+}
+
+/* ==========================================================
+   BRANDS
+========================================================== */
+
+#brands{
+
+    padding-top:80px;
+    padding-bottom:80px;
+
+}
+
+/* ================= Heading ================= */
+
+/* ================= Heading Accent ================= */
+
+#brands h2{
+
+    position:relative;
+
+    display:inline-block;
+
+    margin-bottom:18px;
+
+    padding-bottom:14px;
+
+}
+
+#brands h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:0;
+
+    width:90px;
+
+    height:5px;
+
+    background:linear-gradient(90deg,#0d6efd,#4dabf7);
+
+    border-radius:999px;
+
+}
+
+/* ================= Brand Card ================= */
+
+.brand-card{
+
+    border:1px solid #eef2f7;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    overflow:hidden;
+
+    transition:all .35s ease;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+    cursor:pointer;
+
+}
+
+.brand-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#dbe7ff;
+
+    box-shadow:0 20px 45px rgba(13,110,253,.12);
+
+}
+
+/* ================= Card Body ================= */
+
+.brand-card .card-body{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:150px;
+
+    padding:25px;
+
+}
+
+/* ================= Brand Logo ================= */
+
+.brand-logo{
+
+    max-width:100%;
+
+    max-height:70px;
+
+    width:auto;
+
+    height:auto;
+
+    object-fit:contain;
+
+    transition:
+        transform .35s ease,
+        filter .35s ease,
+        opacity .35s ease;
+
+    opacity:.9;
+
+}
+
+.brand-card:hover .brand-logo{
+
+    transform:scale(1.08);
+
+    opacity:1;
+
+    filter:brightness(1.05);
+
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width:992px){
+
+    .brand-card .card-body{
+
+        height:135px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .brand-card .card-body{
+
+        height:120px;
+
+        padding:20px;
+
+    }
+
+    .brand-logo{
+
+        max-height:60px;
+
+    }
+
+}
+
+/* ==========================================================
+   TESTIMONIALS
+========================================================== */
+
+.testimonial-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:all .35s ease;
+
+    overflow:hidden;
+
+}
+
+.testimonial-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+
+}
+
+/* Customer Avatar */
+
+.testimonial-avatar{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    flex-shrink:0;
+
+    border:3px solid #f8f9fa;
+
+}
+
+/* Rating */
+
+.testimonial-card .text-warning{
+
+    margin-bottom:18px !important;
+
+}
+
+/* Review Text */
+
+.testimonial-card p{
+
+    min-height:70px;
+
+    line-height:1.8;
+
+}
+
+.quote-icon{
+
+    color:#0d6efd;
+
+    opacity:.15;
+
+    line-height:1;
+
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.footer-link{
+
+    color:#ced4da;
+
+    text-decoration:none;
+
+    display:inline-block;
+
+    margin-bottom:10px;
+
+    transition:all .3s ease;
+
+}
+
+.footer-link:hover{
+
+    color:#ffc107;
+
+    transform:translateX(4px);
+
+}
+
+.footer-social{
+
+    width:40px;
+
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.footer-social:hover{
+
+    background:#0d6efd;
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+#footer p{
+
+    line-height:1.8;
+
+}
+#footer h5{
+
+    margin-bottom:20px;
+
+}
+
+
+.clear-filter-btn{
+    background:#dc3545;
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:8px;
+    font-weight:600;
+    transition:all .3s ease;
+}
+
+.clear-filter-btn:hover{
+    background:#bb2d3b;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(220,53,69,.25);
+}
+
+/* ==========================================================
+   TOAST NOTIFICATIONS
+========================================================== */
+
+.toast-container{
+    z-index: 9999;
+}
+
+.toast{
+    min-width:360px;
+    max-width:420px;
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.22);
+}
+
+.toast{
+
+    animation: slideIn .35s ease;
+
+}
+
+@keyframes slideIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(80px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   CHECKOUT PAGE
+========================================================== */
+
+.form-control,
+.form-select{
+    border-radius:10px;
+    padding:12px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    box-shadow:none;
+    border-color:#0d6efd;
+}
+
+.order-summary{
+    position:sticky;
+    top:100px;
+}
+
+.product-stock {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #198754;
+    margin-bottom: 10px;
+}
+
+.product-stock.out-of-stock {
+    color: #dc3545;
+}
+
+

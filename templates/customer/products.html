@@ -1,0 +1,308 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Products | Color Joys Paint Co.
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <!-- ================= Search & Filters ================= -->
+
+        <div class="row justify-content-center mb-5">
+
+            <div class="col-lg-8">
+
+                <form method="GET"
+                      action="{{ url_for('customer.products') }}">
+
+                    <div class="row g-3">
+
+                        <!-- Search -->
+
+                        <div class="col-lg-3">
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Search products..."
+                                value="{{ search }}"
+                            >
+
+                        </div>
+
+                        <!-- Category -->
+
+                        <div class="col-lg-3">
+
+                            <select
+                                name="category"
+                                class="form-select"
+                                onchange="this.form.submit()"
+                            >
+
+                                <option value="">All Categories</option>
+
+                                {% for category in categories %}
+
+                                <option
+                                    value="{{ category.id }}"
+                                    {% if category_id == category.id %}selected{% endif %}
+                                >
+                                    {{ category.name }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Brand -->
+
+                        <div class="col-lg-3">
+
+                            <select
+                                name="brand"
+                                class="form-select"
+                                onchange="this.form.submit()"
+                            >
+
+                                <option value="">All Brands</option>
+
+                                {% for brand in brands %}
+
+                                <option
+                                    value="{{ brand.id }}"
+                                    {% if brand_id == brand.id %}selected{% endif %}
+                                >
+                                    {{ brand.name }}
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- Sort -->
+
+                        <div class="col-lg-3">
+
+                            <select
+                                name="sort"
+                                class="form-select"
+                                onchange="this.form.submit()"
+                            >
+
+                                <option value="">Sort</option>
+
+                                <option value="price_low"
+                                    {% if sort == "price_low" %}selected{% endif %}>
+                                    Lowest Price
+                                </option>
+
+                                <option value="price_high"
+                                    {% if sort == "price_high" %}selected{% endif %}>
+                                    Highest Price
+                                </option>
+
+                                <option value="rating"
+                                    {% if sort == "rating" %}selected{% endif %}>
+                                    Top Rated
+                                </option>
+
+                                <option value="newest"
+                                    {% if sort == "newest" %}selected{% endif %}>
+                                    Newest
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+                {% if search or category_id or brand_id or sort %}
+
+                <div class="text-end mt-3">
+
+                    <a
+                        href="{{ url_for('customer.products') }}"
+                        class="btn clear-filter-btn"
+                    >
+                        Clear Filters
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- ================= Products ================= -->
+
+        {% if products.items %}
+
+        <div class="row g-4">
+
+            {% for product in products.items %}
+
+                {% set card_type = "products" %}
+
+                {% include "customer/components/product_card.html" %}
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <div class="card shadow-sm border-0 mx-auto"
+                 style="max-width:550px;">
+
+                <div class="card-body py-5">
+
+                    <div class="display-3 mb-3">
+                        🔍
+                    </div>
+
+                    <h3 class="fw-bold mb-3">
+                        No Products Found
+                    </h3>
+
+                    {% if search %}
+
+                    <p class="text-muted mb-4">
+                        We couldn't find any products matching
+                        <strong>"{{ search }}"</strong>.
+                    </p>
+
+                    {% else %}
+
+                    <p class="text-muted mb-4">
+                        No products are available at the moment.
+                    </p>
+
+                    {% endif %}
+
+                    <a
+                        href="{{ url_for('customer.products') }}"
+                        class="btn btn-primary"
+                    >
+                        View All Products
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- ================= Pagination ================= -->
+
+        {% if products.pages > 1 %}
+
+        <nav class="mt-5">
+
+            <ul class="pagination justify-content-center">
+
+                <!-- Previous -->
+
+                {% if products.has_prev %}
+
+                <li class="page-item">
+
+                    <a
+                        class="page-link"
+                        href="{{ url_for(
+                            'customer.products',
+                            page=products.prev_num,
+                            search=search,
+                            category=category_id,
+                            brand=brand_id,
+                            sort=sort
+                        ) }}"
+                    >
+                        Previous
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+                <!-- Page Numbers -->
+
+                {% for p in products.iter_pages() %}
+
+                    {% if p %}
+
+                    <li class="page-item {% if p == products.page %}active{% endif %}">
+
+                        <a
+                            class="page-link"
+                            href="{{ url_for(
+                                'customer.products',
+                                page=p,
+                                search=search,
+                                category=category_id,
+                                brand=brand_id,
+                                sort=sort
+                            ) }}"
+                        >
+                            {{ p }}
+                        </a>
+
+                    </li>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                <!-- Next -->
+
+                {% if products.has_next %}
+
+                <li class="page-item">
+
+                    <a
+                        class="page-link"
+                        href="{{ url_for(
+                            'customer.products',
+                            page=products.next_num,
+                            search=search,
+                            category=category_id,
+                            brand=brand_id,
+                            sort=sort
+                        ) }}"
+                    >
+                        Next
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

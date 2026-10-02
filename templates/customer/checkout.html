@@ -1,0 +1,244 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Checkout | Color Joys Paint Co.
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+
+    <div class="container">
+
+        <h2 class="fw-bold mb-4">
+            Checkout
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- ================= Billing Details ================= -->
+
+            <div class="col-lg-8">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold mb-4">
+                            Billing Details
+                        </h4>
+
+                        <form
+                            action="{{ url_for('customer.start_payment') }}"
+                            method="POST"
+                        >
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="customer_name"
+                                        class="form-control"
+                                        placeholder="Enter your full name"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Phone Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        class="form-control"
+                                        placeholder="Enter phone number"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="Enter email"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        City
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="city"
+                                        class="form-control"
+                                        placeholder="Enter city"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        State
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="state"
+                                        class="form-control"
+                                        placeholder="Enter state"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label class="form-label">
+                                        Pincode
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="pincode"
+                                        class="form-control"
+                                        placeholder="Enter pincode"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12 mb-3">
+
+                                    <label class="form-label">
+                                        Delivery Address
+                                    </label>
+
+                                    <textarea
+                                        name="address"
+                                        class="form-control"
+                                        rows="4"
+                                        placeholder="Enter delivery address"
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                                <div class="col-12 mb-4">
+
+                                    <label class="form-label">
+                                        Order Notes (Optional)
+                                    </label>
+
+                                    <textarea
+                                        name="notes"
+                                        class="form-control"
+                                        rows="3"
+                                        placeholder="Any special instructions..."
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= Order Summary ================= -->
+
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm border-0 order-summary">
+
+                    <div class="card-body">
+
+                        <h4 class="fw-bold mb-4">
+                            Order Summary
+                        </h4>
+
+                        {% for item in cart_items %}
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <div>
+
+                                <strong>
+                                    {{ item.product.name }}
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+                                    Qty: {{ item.quantity }}
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                ₹{{ item.subtotal }}
+                            </strong>
+
+                        </div>
+
+                        {% endfor %}
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-4">
+
+                            <h5>Total</h5>
+
+                            <h5 class="text-primary">
+                                ₹{{ total }}
+                            </h5>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success w-100 btn-lg"
+                        >
+                            Place Order
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+                        </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

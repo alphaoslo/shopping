@@ -1,0 +1,21 @@
+{% extends "admin/layouts/base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<div class="admin-content">
+    <div class="mb-4">
+        <h2 class="fw-bold">Store Settings</h2>
+        <p class="text-muted mb-0">Configure your store preferences.</p>
+    </div>
+    <form method="POST">
+        <div class="card admin-card"><div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Store Name</label><input type="text" name="store_name" class="form-control" value="{{ settings.store_name }}" required></div>
+                <div class="col-md-6"><label class="form-label">Contact Email</label><input type="email" name="contact_email" class="form-control" value="{{ settings.contact_email }}"></div>
+                <div class="col-md-6"><label class="form-label">Contact Phone</label><input type="text" name="contact_phone" class="form-control" value="{{ settings.contact_phone }}"></div>
+                <div class="col-md-6"><label class="form-label">Low Stock Threshold</label><input type="number" name="low_stock_threshold" class="form-control" value="{{ settings.low_stock_threshold }}" min="0"></div>
+            </div>
+        </div></div>
+        <button class="btn btn-primary mt-3">Save Settings</button>
+    </form>
+</div>
+{% endblock %}

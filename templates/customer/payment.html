@@ -1,0 +1,115 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Redirecting to Payment...
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+
+    <div class="spinner-border text-success mb-4" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <h3>Redirecting to Razorpay...</h3>
+
+    <p class="text-muted">
+        Please wait while we connect you to the secure payment gateway.
+    </p>
+
+</div>
+
+<form
+    id="payment-success-form"
+    action="{{ url_for('customer.payment_success') }}"
+    method="POST"
+>
+
+    <input
+        type="hidden"
+        name="razorpay_order_id"
+        id="razorpay_order_id"
+    >
+
+    <input
+        type="hidden"
+        name="razorpay_payment_id"
+        id="razorpay_payment_id"
+    >
+
+    <input
+        type="hidden"
+        name="razorpay_signature"
+        id="razorpay_signature"
+    >
+
+</form>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+const options = {
+
+    key: "{{ razorpay_key }}",
+
+    amount: "{{ total * 100 }}",
+
+    currency: "INR",
+
+    name: "Color Joys Paint Co.",
+
+    description: "Paint Store Order",
+
+    order_id: "{{ razorpay_order_id }}",
+
+    handler: function (response) {
+
+        document.getElementById("razorpay_order_id").value =
+            response.razorpay_order_id;
+
+        document.getElementById("razorpay_payment_id").value =
+            response.razorpay_payment_id;
+
+        document.getElementById("razorpay_signature").value =
+            response.razorpay_signature;
+
+        document.getElementById("payment-success-form").submit();
+
+    },
+
+    modal: {
+
+        ondismiss: function () {
+
+            window.location.href =
+                "{{ url_for('customer.checkout') }}";
+
+        }
+
+    }
+
+};
+
+const rzp = new Razorpay(options);
+
+rzp.on("payment.failed", function (response) {
+
+    console.log("Payment Failed");
+
+    console.log(response.error);
+
+    alert("Payment Failed");
+
+});
+
+window.onload = function () {
+
+    rzp.open();
+
+};
+
+</script>
+
+{% endblock %}

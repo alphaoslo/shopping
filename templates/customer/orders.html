@@ -1,0 +1,130 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2 class="fw-bold mb-4">
+        My Orders
+    </h2>
+
+    {% if orders %}
+
+    <table class="table table-bordered align-middle">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for order in orders %}
+
+            <tr>
+
+                <td>#{{ order.id }}</td>
+
+                <td>{{ order.customer_name }}</td>
+
+                <td>{{ (order.created_at + timedelta(hours=5, minutes=30)).strftime("%d-%m-%Y %I:%M %p") }}</td>
+
+                <td>
+
+                    {% if order.status == "Pending" %}
+                        <span class="badge bg-warning text-dark">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Processing" %}
+                        <span class="badge bg-info text-dark">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Shipped" %}
+                        <span class="badge bg-primary">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Delivered" %}
+                        <span class="badge bg-success">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Cancelled" %}
+                        <span class="badge bg-danger">
+                            {{ order.status }}
+                        </span>
+
+                    {% else %}
+                        {{ order.status }}
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    ₹{{ "%.2f"|format(order.total_amount) }}
+                </td>
+
+                <td>
+
+                    <a
+                        href="{{ url_for('customer.order_details', order_id=order.id) }}"
+                        class="btn btn-primary btn-sm"
+                    >
+                        View Details
+                    </a>
+
+                    {% if order.status in ["Pending", "Processing"] %}
+
+                    <form
+                        action="{{ url_for('customer.cancel_order', order_id=order.id) }}"
+                        method="POST"
+                        class="d-inline"
+                    >
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to cancel this order?')"
+                        >
+                            Cancel Order
+                        </button>
+
+                    </form>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-info">
+
+        You haven't placed any orders yet.
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

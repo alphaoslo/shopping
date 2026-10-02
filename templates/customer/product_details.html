@@ -1,0 +1,316 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+{{ product.name }} | Color Joys Paint Co.
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row g-5">
+
+            <!-- Product Image -->
+
+            <div class="col-lg-6">
+
+                <img
+                    src="{{ url_for('static', filename='uploads/products/' ~ product.image) }}"
+                    class="img-fluid rounded shadow-lg p-3 bg-white"                    alt="{{ product.name }}"
+                >
+
+            </div>
+
+            <!-- Product Details -->
+
+            <div class="col-lg-6">
+
+                <h2 class="fw-bold mb-3">
+    {{ product.name }}
+</h2>
+
+<!-- Rating -->
+
+<div class="mb-3">
+
+    <span class="text-warning fs-5">
+        ★★★★☆
+    </span>
+
+    <span class="fw-semibold">
+        {{ product.rating }}
+    </span>
+
+    <span class="text-muted">
+        ({{ product.review_count }} Reviews)
+    </span>
+
+</div>
+
+<!-- Brand -->
+
+<p class="mb-2">
+    <strong>Brand:</strong>
+    {{ product.brand.name }}
+</p>
+
+<!-- Category -->
+
+<p class="mb-3">
+    <strong>Category:</strong>
+    {{ product.category.name }}
+</p>
+
+<!-- Price -->
+
+<div class="mb-4">
+
+    {% if product.original_price > product.price %}
+
+        {% set discount = (((product.original_price - product.price) / product.original_price) * 100) | round(0) %}
+
+        <div class="d-flex align-items-center gap-3 mb-2">
+
+            <h2 class="text-primary fw-bold mb-0">
+                ₹{{ "%.0f"|format(product.price) }}
+            </h2>
+
+            <span class="badge bg-danger fs-6">
+                {{ discount|int }}% OFF
+            </span>
+
+        </div>
+
+        <p class="text-muted mb-1">
+            <del>₹{{ "%.0f"|format(product.original_price) }}</del>
+        </p>
+
+        <p class="text-success fw-semibold mb-0">
+            You save ₹{{ "%.0f"|format(product.original_price - product.price) }}
+        </p>
+
+    {% else %}
+
+        <h2 class="text-primary fw-bold mb-0">
+            ₹{{ "%.0f"|format(product.price) }}
+        </h2>
+
+    {% endif %}
+
+</div>
+
+<!-- Stock -->
+
+{% if product.stock > 0 %}
+
+<p class="text-success fw-semibold">
+    ✔ In Stock ({{ product.stock }} available)
+</p>
+
+{% else %}
+
+<p class="text-danger fw-semibold">
+    ✖ Out of Stock
+</p>
+
+{% endif %}
+
+<!-- Description -->
+
+<p class="text-muted my-4">
+    {{ product.description }}
+</p>
+
+ 
+<!-- Quantity -->
+
+<div class="mb-4">
+
+    <label class="form-label fw-semibold">
+        Quantity
+    </label>
+
+    <div class="input-group" style="width: 140px;">
+
+        <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onclick="decreaseQuantity()"
+        >
+            −
+        </button>
+
+        <input
+    type="text"
+    id="quantity"
+    class="form-control text-center"
+    value="1"
+    data-max-stock="{{ product.stock }}"
+    readonly
+>
+
+       <button
+    class="btn btn-outline-secondary"
+    type="button"
+    onclick="increaseQuantity()"
+>
+    +
+</button>
+
+    </div>
+
+</div>
+
+<!-- Buttons -->
+
+<!-- Buttons -->
+
+{% if product.stock > 0 %}
+
+<div class="d-flex gap-3 mt-4">
+
+    <!-- Add to Cart -->
+
+    <form
+        action="{{ url_for('customer.add_to_cart', product_id=product.id) }}"
+        method="POST"
+        class="flex-grow-1"
+    >
+
+        <input
+            type="hidden"
+            name="quantity"
+            id="cartQuantity"
+            value="1"
+        >
+
+        <button
+            type="submit"
+            class="btn btn-primary w-100"
+        >
+            <i class="bi bi-cart-plus"></i>
+            Add to Cart
+        </button>
+
+    </form>
+
+    <!-- Buy Now -->
+
+    <form
+        action="{{ url_for('customer.buy_now', product_id=product.id) }}"
+        method="POST"
+        class="flex-grow-1"
+    >
+
+        <input
+            type="hidden"
+            name="quantity"
+            id="buyNowQuantity"
+            value="1"
+        >
+
+        <button
+            type="submit"
+            class="btn btn-success w-100"
+        >
+            <i class="bi bi-lightning-fill"></i>
+            Buy Now
+        </button>
+
+    </form>
+
+</div>
+
+{% else %}
+
+<button
+    class="btn btn-secondary w-100"
+    disabled
+>
+    Out of Stock
+</button>
+
+{% endif %}
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================================= -->
+<!-- RELATED PRODUCTS -->
+<!-- ========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="fw-bold">
+                Related Products
+            </h2>
+
+            <p class="text-muted">
+                You may also like these products.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            {% for product in related_products %}
+
+                {% set card_type = "products" %}
+
+                {% include "customer/components/product_card.html" %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+function increaseQuantity() {
+
+    const quantity = document.getElementById("quantity");
+
+    const maxStock = parseInt(quantity.dataset.maxStock);
+
+    let value = parseInt(quantity.value);
+
+    if (value < maxStock) {
+        quantity.value = value + 1;
+        document.getElementById("cartQuantity").value = quantity.value;
+        document.getElementById("buyNowQuantity").value = quantity.value;
+    }
+
+}
+
+function decreaseQuantity() {
+
+    const quantity = document.getElementById("quantity");
+
+    let value = parseInt(quantity.value);
+
+    if (value > 1) {
+        quantity.value = value - 1;
+        document.getElementById("cartQuantity").value = quantity.value;
+        document.getElementById("buyNowQuantity").value = quantity.value;
+    }
+
+}
+
+</script>
+
+{% endblock %}

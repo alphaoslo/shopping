@@ -1,0 +1,20 @@
+{% extends "admin/layouts/base.html" %}
+{% block title %}Edit Category{% endblock %}
+{% block content %}
+<div class="admin-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div><h2 class="fw-bold">Edit Category</h2></div>
+        <a href="{{ url_for('admin.categories.index') }}" class="btn btn-outline-secondary">Back</a>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="card admin-card"><div class="card-body">
+            <div class="row g-4">
+                <div class="col-md-6"><label class="form-label">Category Name</label><input type="text" class="form-control" name="name" value="{{ category.name }}" required></div>
+                <div class="col-md-6"><label class="form-label">Replace Image</label><input type="file" class="form-control" name="image" accept="image/*"></div>
+                <div class="col-12"><label class="form-label">Description</label><textarea class="form-control" name="description" rows="3">{{ category.description or '' }}</textarea></div>
+            </div>
+        </div></div>
+        <button class="btn btn-primary mt-3">Update Category</button>
+    </form>
+</div>
+{% endblock %}

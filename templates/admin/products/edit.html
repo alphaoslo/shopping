@@ -1,0 +1,542 @@
+{% extends "admin/layouts/base.html" %}
+
+{% block title %}
+Edit Product
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-content">
+
+    <!-- ==========================================
+         PAGE HEADER
+    ========================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                Edit Product
+            </h2>
+
+            <p class="text-muted mb-0">
+                Update the selected product.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('admin.products.index') }}"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Back
+
+        </a>
+
+    </div>
+
+    <form method="POST"
+          enctype="multipart/form-data">
+
+        <!-- ==========================================
+             PRODUCT INFORMATION
+        ========================================== -->
+
+        <div class="card admin-card">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+                    Product Information
+                </h5>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Product Name
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="name"
+                            value="{{ product.name }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            SKU
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="sku"
+                            value="{{ product.sku }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Category
+                        </label>
+
+                        <select
+                            class="form-select"
+                            name="category_id"
+                            required>
+
+                            {% for category in categories %}
+
+                            <option
+                                value="{{ category.id }}"
+                                {% if category.id == product.category_id %}selected{% endif %}>
+
+                                {{ category.name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Brand
+                        </label>
+
+                        <select
+                            class="form-select"
+                            name="brand_id"
+                            required>
+
+                            {% for brand in brands %}
+
+                            <option
+                                value="{{ brand.id }}"
+                                {% if brand.id == product.brand_id %}selected{% endif %}>
+
+                                {{ brand.name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             PRICING
+        ========================================== -->
+
+        <div class="card admin-card mt-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+                    Pricing & Inventory
+                </h5>
+
+                <div class="row g-4">
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Original Price
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="original_price"
+                            id="original_price"
+                            value="{{ product.original_price }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Selling Price
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="price"
+                            id="price"
+                            value="{{ product.price }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Discount %
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="discount"
+                            id="discount"
+                            value="{{ product.discount }}"
+                            min="0"
+                            max="100"
+                            step="0.01">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <label class="form-label">
+                            Stock Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="stock"
+                            value="{{ product.stock }}"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             PRODUCT IMAGE
+        ========================================== -->
+
+        <div class="card admin-card mt-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+                    Product Image
+                </h5>
+
+                {% if product.image %}
+
+                <div class="mb-3">
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/products/' + product.image) }}"
+                        class="img-thumbnail"
+                        width="180">
+
+                </div>
+
+                {% endif %}
+
+                <input
+                    type="file"
+                    class="form-control"
+                    name="image"
+                    accept=".jpg,.jpeg,.png,.webp">
+
+                <small class="text-muted">
+                    Leave empty to keep the existing image.
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             STATUS
+        ========================================== -->
+
+        <div class="card admin-card mt-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+                    Product Status
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="is_active"
+                                {% if product.is_active %}checked{% endif %}>
+
+                            <label class="form-check-label">
+
+                                Active
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="is_featured"
+                                {% if product.is_featured %}checked{% endif %}>
+
+                            <label class="form-check-label">
+
+                                Featured Product
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="is_best_seller"
+                                {% if product.is_best_seller %}checked{% endif %}>
+
+                            <label class="form-check-label">
+
+                                Best Seller
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             DESCRIPTION
+        ========================================== -->
+
+        <div class="card admin-card mt-4">
+
+            <div class="card-body">
+
+                <h5 class="mb-4">
+                    Description
+                </h5>
+
+                <textarea
+                    rows="7"
+                    class="form-control"
+                    name="description">{{ product.description }}</textarea>
+
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             BUTTONS
+        ========================================== -->
+
+        <div class="d-flex justify-content-end gap-3 mt-4">
+
+            <a href="{{ url_for('admin.products.index') }}"
+               class="btn btn-outline-secondary">
+
+                Cancel
+
+            </a>
+
+            <button
+                class="btn btn-primary admin-btn"
+                type="submit">
+
+                <i class="bi bi-check-circle me-2"></i>
+
+                Update Product
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const originalPriceInput =
+        document.getElementById("original_price");
+
+    const sellingPriceInput =
+        document.getElementById("price");
+
+    const discountInput =
+        document.getElementById("discount");
+
+
+    function calculateSellingPrice() {
+
+        const originalPrice =
+            parseFloat(originalPriceInput.value);
+
+        const discount =
+            parseFloat(discountInput.value);
+
+
+        if (
+            isNaN(originalPrice) ||
+            isNaN(discount) ||
+            originalPrice <= 0
+        ) {
+
+            return;
+        }
+
+
+        const safeDiscount =
+            Math.min(Math.max(discount, 0), 100);
+
+        const sellingPrice =
+            originalPrice * (1 - safeDiscount / 100);
+
+
+        sellingPriceInput.value =
+            Math.round(sellingPrice);
+    }
+
+
+    function calculateDiscount() {
+
+        const originalPrice =
+            parseFloat(originalPriceInput.value);
+
+        const sellingPrice =
+            parseFloat(sellingPriceInput.value);
+
+
+        if (
+            isNaN(originalPrice) ||
+            isNaN(sellingPrice) ||
+            originalPrice <= 0 ||
+            sellingPrice < 0
+        ) {
+
+            return;
+        }
+
+
+        if (sellingPrice > originalPrice) {
+
+            discountInput.value = "0";
+
+            return;
+        }
+
+
+        const discount =
+            ((originalPrice - sellingPrice) / originalPrice) * 100;
+
+
+        discountInput.value =
+            Math.round(discount);
+    }
+
+
+    function handleOriginalPrice() {
+
+        const discount =
+            parseFloat(discountInput.value);
+
+        const sellingPrice =
+            parseFloat(sellingPriceInput.value);
+
+
+        if (!isNaN(discount)) {
+
+            calculateSellingPrice();
+
+        } else if (!isNaN(sellingPrice)) {
+
+            calculateDiscount();
+
+        }
+    }
+
+
+    originalPriceInput.addEventListener(
+        "input",
+        handleOriginalPrice
+    );
+
+    discountInput.addEventListener(
+        "input",
+        function () {
+
+            const discount =
+                parseFloat(discountInput.value);
+
+            if (
+                !isNaN(discount) &&
+                discount >= 0 &&
+                discount <= 100
+            ) {
+
+                calculateSellingPrice();
+
+            } else if (discountInput.value !== "") {
+
+                sellingPriceInput.value = "";
+
+            }
+
+        }
+    );
+
+    sellingPriceInput.addEventListener(
+        "input",
+        calculateDiscount
+    );
+
+});
+
+</script>
+
+{% endblock %}
