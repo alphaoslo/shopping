@@ -134,6 +134,29 @@ def products():
         sort=sort,
         page=page
     )
+@customer_bp.route("/about")
+def about():
+    return render_template("customer/about.html")
+
+
+@customer_bp.route("/contact")
+def contact():
+    return render_template("customer/contact.html")
+
+
+@customer_bp.route("/category/<category_name>")
+def category_products(category_name):
+    category = Category.query.filter(
+        Category.name.ilike(f"%{category_name}%")
+    ).first()
+
+    if not category:
+        flash("Category not found.", "warning")
+        return redirect(url_for("customer.products"))
+
+    return redirect(url_for("customer.products", category=category.id))
+
+
 @customer_bp.route("/products/<int:product_id>")
 def product_details(product_id):
 

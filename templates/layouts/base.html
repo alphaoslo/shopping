@@ -65,23 +65,23 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Interior</a>
+        <a class="nav-link" href="{{ url_for('customer.category_products', category_name='Interior') }}">Interior</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Exterior</a>
+        <a class="nav-link" href="{{ url_for('customer.category_products', category_name='Exterior') }}">Exterior</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Primer</a>
+        <a class="nav-link" href="{{ url_for('customer.category_products', category_name='Primer') }}">Primer</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="{{ url_for('customer.about') }}">About</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link" href="{{ url_for('customer.contact') }}">Contact</a>
     </li>
 
     <li class="nav-item">

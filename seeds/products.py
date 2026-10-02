@@ -16,6 +16,7 @@ def seed_products():
     primer = Category.query.filter_by(name="Primers").first()
     wood = Category.query.filter_by(name="Wood Coatings").first()
     waterproof = Category.query.filter_by(name="Waterproofing").first()
+    tools = Category.query.filter_by(name="Painting Tools").first()
 
     asian = Brand.query.filter_by(name="Asian Paints").first()
     berger = Brand.query.filter_by(name="Berger Paints").first()
@@ -176,7 +177,147 @@ def seed_products():
             brand=indigo
         ),
 
+        Product(
+            name="Roof Waterproofing Solution",
+            description="Heavy duty waterproof coating for roofs.",
+            price=3299,
+            original_price=3999,
+            rating=4.7,
+            review_count=44,
+            stock=25,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=True,
+            category=waterproof,
+            brand=nippon
+        ),
+
+        Product(
+            name="Exterior Satin Sheen",
+            description="Durable exterior paint with satin finish.",
+            price=2599,
+            original_price=2999,
+            rating=4.6,
+            review_count=81,
+            stock=38,
+            image="jeevan-premium-emulsion.png",
+            is_featured=True,
+            is_best_seller=False,
+            category=exterior,
+            brand=dulux
+        ),
+
+        Product(
+            name="Interior Silk Matt",
+            description="Smooth silk matt finish for interior walls.",
+            price=1799,
+            original_price=2199,
+            rating=4.5,
+            review_count=67,
+            stock=42,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=True,
+            category=interior,
+            brand=nerolac
+        ),
+
+        Product(
+            name="Wood Stain",
+            description="Protective stain for wooden surfaces.",
+            price=1399,
+            original_price=1699,
+            rating=4.4,
+            review_count=35,
+            stock=28,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=False,
+            category=wood,
+            brand=nippon
+        ),
+
+        Product(
+            name="Exterior Primer Plus",
+            description="Weather-resistant exterior primer.",
+            price=1099,
+            original_price=1399,
+            rating=4.5,
+            review_count=52,
+            stock=48,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=False,
+            category=primer,
+            brand=asian
+        ),
+
+        Product(
+            name="Wall Putty",
+            description="Smooth wall putty for paint preparation.",
+            price=799,
+            original_price=999,
+            rating=4.6,
+            review_count=91,
+            stock=65,
+            image="jeevan-premium-emulsion.png",
+            is_featured=True,
+            is_best_seller=True,
+            category=primer,
+            brand=nerolac
+        ),
+
+        Product(
+            name="Waterproof Wall Sealer",
+            description="Seal walls against moisture and dampness.",
+            price=1499,
+            original_price=1899,
+            rating=4.5,
+            review_count=29,
+            stock=33,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=False,
+            category=waterproof,
+            brand=berger
+        ),
+
+        Product(
+            name="Paint Brush Set",
+            description="Professional brush set for all painting needs.",
+            price=499,
+            original_price=699,
+            rating=4.7,
+            review_count=112,
+            stock=80,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=True,
+            category=tools,
+            brand=asian
+        ),
+
+        Product(
+            name="Roller Set",
+            description="High-quality roller set for smooth finish.",
+            price=399,
+            original_price=599,
+            rating=4.6,
+            review_count=88,
+            stock=75,
+            image="jeevan-premium-emulsion.png",
+            is_featured=False,
+            is_best_seller=False,
+            category=tools,
+            brand=berger
+        ),
+
     ]
+
+    # Ensure every product has a unique SKU
+    for i, p in enumerate(products, start=1):
+        if not p.sku:
+            p.sku = f"CJ-{1000 + i}"
 
     db.session.add_all(products)
     db.session.commit()
