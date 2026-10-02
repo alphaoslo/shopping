@@ -44,6 +44,14 @@ with app.app_context():
     try:
         from seeds.admin import seed_admin
         seed_admin()
+        from models.product import Product
+        if Product.query.count() == 0:
+            from seeds.categories import seed_categories
+            from seeds.brands import seed_brands
+            from seeds.products import seed_products
+            seed_categories()
+            seed_brands()
+            seed_products()
     except Exception:
         pass
 
